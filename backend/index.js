@@ -2,8 +2,9 @@ const pg = require('pg');
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const app = express();
 const cors = require('cors');
+
+const app = express();
 
 const port = 3000;
 
@@ -16,9 +17,16 @@ const pool = new pg.Pool({
     connectionTimeoutMillis: 5000
 });
 
+// Define CORS options
+const corsOptions = {
+  origin: 'http://localhost:8081', // Allow requests from this origin
+  methods: ['GET'], // Allow only GET requests
+};
+
+
 console.log("Connecting...:");
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
